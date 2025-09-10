@@ -1,0 +1,33 @@
+
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">{% endblock %}
+{%  block javascripts %} <script src="script.js" defer></script> {% endblock %}
+
+{% block body %}
+    <header>
+        <nav class="flex-center">
+            <ul class="flex-center">
+                <li><a href="{{ path('home') }}">Accueil</a></li>
+                <li><a href="{{ path('contact') }}">Nous contacter</a></li>
+                <li><a href="{{ path('catalogues') }}">Catalogues</a></li>
+                <li><a href="{{ path('faq') }}">FAQ</a></li>
+
+                {% if app.user %}
+                    {% if app.user.verified == 0 %}
+                    <li><a href="{{ path('app_resend_code') }}"><img src="{{ asset('img/profile-user-notverified.png') }}" alt='Profile' class='profile-icon'></a></li>
+                    {% else %}
+                        <li><a href="{{ path('profile') }}"><img src="{{ asset(app.user.profilePicture) }}" alt='Profile' class='profile-icon'></a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{{ path('loginregisterform') }}">Se connecter</a></li>
+                {% endif %}
+
+                <li>
+                    <a href="{{ path('home') }}">
+                        <img src="{{ asset('img/logo.png') }}" class="logo">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du film</title>
+    <link rel="stylesheet" href="{{ asset('styles/movies.css') }}?v={{ random() }}">
+    <link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">
+</head>
+
+<body>
+{% include 'navbar.html.twig' %}
+
+<div class="review-content flex-center">
+    <div class="containerreview">
+        <div class="movie-header">test</div>
+
+        <div id="movie-details">Chargement...</div>
+        <div id="movie-details3" class="flex-center"></div>
+    </div>
+</div>
+
+<script src="{{ asset('script/review.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+
+<script>
+    const reviewAction = "{{ path('reviews_submit', {'movieId': 'MOVIE_ID'}) }}";
+</script>
+</body>
+</html>

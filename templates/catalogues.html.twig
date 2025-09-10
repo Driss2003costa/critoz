@@ -1,0 +1,61 @@
+{# templates/homecontroller/catalogues.html.twig #}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/catalogues.css') }}?v={{ random() }}">
+    <link rel="stylesheet" href="{{ asset('styles/navbar.css') }}?v={{ random() }}">
+{% endblock %}
+
+
+{% block body %}
+    {% include 'navbar.html.twig' %}
+
+    <main>
+        <h1>🎬 Films à l'affiche</h1>
+
+        <div class="themebutton">
+            <div class="filter-options">
+                <button id="filter">
+                    <span class="arrow">
+                        <img src="{{ asset('img/filter.png') }}" width="28" class="imgfilter">
+                    </span>
+                </button>
+                <div class="filter-dropdown">
+                    <button id="toggleAlphabetical">A ➡️ Z</button>
+                    <button id="toggleDate">Plus récents</button>
+                </div>
+            </div>
+
+            <button id="action">Action</button>
+            <button id="horror">Horreur</button>
+            <button id="scifi">Sciences - Fictions</button>
+            <button id="thriller">Thriller</button>
+            <button id="comedy">Comédie</button>
+            <button id="war">Guerre</button>
+            <button id="family">Famille</button>
+            <button id="romance">Romance</button>
+            <button id="fantasy">Fantasie</button>
+            <button id="animation">Animation</button>
+
+            <div class="searchgroup">
+                <input id="searchinput" placeholder="Rechercher...">
+                <button id="search">
+                    <img src="{{ asset('img/search(1).png') }}" alt="Search" width="30" height="30">
+                </button>
+            </div>
+        </div>
+
+        <div id="film-container"></div>
+
+        <div class="pagination">
+            <button id="prev"><p>&lt; Précedent</p></button>
+            <span id="page-number">1</span>
+            <button id="next"><p>Suivant &gt;</p></button>
+        </div>
+    </main>
+    {% block javascripts %}
+        <script>
+            const movieDetailsUrl = '{{ path("movie_details", {"movieId": "MOVIE_ID"}) }}';
+        </script>
+        <script src="{{ asset('script/movies.js') }}?v={{ random() }}" defer></script>
+    {% endblock %}
+{% endblock %}

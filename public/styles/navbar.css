@@ -1,0 +1,130 @@
+/* =========================================================
+   FONTS & UTILITAIRES COMMUNS
+   Toutes les pages
+========================================================= */
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, nav, ul, a, #verification-form, #verification-form * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.font-custom {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* =========================================================
+   BODY / BACKGROUND
+   Toutes les pages avec animation gradient
+========================================================= */
+body {
+    margin: 0;
+    padding: 0;
+    height: 150%;
+    background: linear-gradient(-95deg, rgb(190,190,190), rgb(224,224,224), rgb(126,126,126), #ececec);
+    background-size: 400% 1000%;
+    animation: gradientAnimation 45s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* =========================================================
+   NAVBAR.PHP
+========================================================= */
+nav {
+    background-color: rgba(105,105,105,0.37);
+    padding: 0;
+}
+
+.logo {
+    height: 150px;
+    width: auto;
+    display: block;
+}
+
+.profile-icon {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    margin: 0;
+}
+
+ul {
+    gap: 100px;
+    list-style: none;
+    margin: 0;
+    font-size: x-large;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* =========================================================
+   SECURITY / VERIFICATION FORM
+========================================================= */
+#verification-container {
+    width: 100vw;
+    height: 75vh;
+}
+
+#verification-form {
+    width: 50vw;
+    height: 50vh;
+    background-color: aliceblue;
+    border-radius: 50px;
+    text-align: center;
+}
+
+#verification-form h2 {
+    margin-bottom: 5vh;
+    font-size: 1.5em;
+}
+
+#verification-form form {
+    gap: 35px;
+    width: 100%;
+}
+
+#verification-form input {
+    padding: 1vw 2vw;
+    font-size: 2em;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    width: 50%;
+}
+
+#verification-form button {
+    padding: 10px;
+    font-size: 1.5em;
+    width: 50%;
+    border: none;
+    border-radius: 5px;
+    background-color: #00054b;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#verification-form button:hover {
+    background-color: #000768;
+}
+
+/* =========================================================
+   BUTTON LIENS DE NAVIGATION / SECURITY FORM
+========================================================= */
+#verification-form a {
+    cursor: pointer;
+    color: var(--blue);
+    text-decoration: underline;
+    font-size: 1em;
+}

@@ -1,5 +1,5 @@
-import { startStimulusApp } from '@symfony/stimulus-bundle';
+import { Application  } from '@hotwired/stimulus';
+import { startStimulusApp } from '@symfony/stimulus-bridge';
 
-const app = startStimulusApp();
-// register any custom, 3rd party controllers here
-// app.register('some_controller_name', SomeImportedController);
+const application = Application.start();
+const app = startStimulusApp(require.context('./controllers', true, /\.js$/));

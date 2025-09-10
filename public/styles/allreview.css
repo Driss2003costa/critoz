@@ -1,0 +1,67 @@
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-custom{
+    font-family: 'Roboto', sans-serif;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    width: 100vw;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+body {
+    height: 100%;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.review-card {
+    background: rgba(218, 218, 218, 0.671);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.review{
+    background-color: rgb(56, 67, 163);
+    box-shadow: 0 4px 8px rgb(0, 6, 59);
+    width: 25vw;
+    padding: 30px;
+    border-radius: 50px;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+.review-footer {
+    margin-top: 35px;
+    font-size: 0.9em;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.review::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(2px);
+}
+
+.review * {
+  position: relative;
+  z-index: 1;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boîte de réception</title>
+    <link rel="stylesheet" href="{{ asset('styles/inbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/profile.css') }}">
+</head>
+
+<body>
+{# Inclure le profil utilisateur si tu as un template Twig dédié #}
+{% include 'profile.html.twig' %}
+
+<div class="body-content flex-center">
+    <div class="main-inbox-container">
+        <div class="inbox-container">
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="profile-section">
+                    <img src="{{ user.profilePicture}}"
+                         alt="Photo de profil"
+                         class="profile-picture-inbox"
+                         width="50" height="50">
+                    <h4 class="username">{{ user.username }}</h4>
+                </div>
+
+                <button class="compose-button" onclick="openComposeModal()">+ Nouveau</button>
+
+                <div class="message-section">
+                    {% if messages is not empty %}
+                        {% for message in messages %}
+                            <button class="message-item flex-center-column"
+                                    onclick="loadMessage({{ message.id }})">
+                                <h2>{{ message.subject }}</h2>
+                                <small> De {{ message.sender.username }}</small>
+                            </button>
+                        {% endfor %}
+                    {% else %}
+                        <p>Aucun message.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="main-content">
+                <div id="messageContainer">
+                    <div id="message-content"></div>
+                </div>
+
+                <div id="composeModal" class="modal hidden">
+                    <div class="modal-content">
+                        <button class="close" onclick="closeComposeModal()">&times;</button>
+                        <form action="{{ path('app_send_message') }}" method="POST" id="composeForm">
+                            <input type="text" name="receiver" placeholder="Destinataire" required id="receiver">
+                            <input type="text" name="subject" placeholder="Sujet" required id="subject">
+                            <textarea name="body" placeholder="Votre message..." required id="body"></textarea>
+                            <button type="submit">Envoyer</button>
+
+                            <div id="messageContainer">
+                                <div id="message-content">
+                                    {% if app.session.get('inbox_message') %}
+                                        {{ app.session.get('inbox_message') }}
+                                        {% do app.session.remove('inbox_message') %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bars -->
+            <div id="top-bar" class="flex-center">
+                <h2>Boîte de réception</h2>
+            </div>
+            <div id="footer-bar"></div>
+
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('script/profile/inbox.js') }}"></script>
+</body>
+</html>

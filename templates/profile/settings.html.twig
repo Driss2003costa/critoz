@@ -1,0 +1,67 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">
+{% endblock %}
+{% include 'profile.html.twig' %}
+{% block body %}
+    <div class="settings-container flex-center">
+        <div class="settings-box">
+            <div class="setting-info flex-column">
+                <h2>Mes informations</h2>
+                <div class="info-input flex-column">
+                    <label>Nom:</label>
+                    <input type="text" value="{{ app.user.username }}">
+                    <label>Email:</label>
+                    <input type="text" value="{{ app.user.email }}">
+                </div>
+            </div>
+
+            <div class="setting-img flex-center-column">
+                <div class="img-container flex-column">
+                    {% if app.user.profilePicture %}
+                        <img src="{{ asset(app.user.profilePicture) }}" alt="Photo de profil" class="profile-picture" width="150" height="150">
+                    {% else %}
+                        <img src="{{ asset('../img/profile-user.png') }}" alt="Avatar par défaut" class="profile-picture" width="150" height="150">
+                    {% endif %}
+
+                    <h2 class="username">{{ app.user.username }}</h2>
+
+                    <div class="img-button flex-center">
+                        <form action="{{ path('upload_profile') }}" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="profile_picture" accept="image/*" required>
+                            <button type="submit">Uploader</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="banner-color-container flex-center-column">
+                    <label>Couleur de la bannière:</label>
+                    <div class="color flex-center">
+                        {% for color in ['#ff0000','#970000','#001a8b','#007cb6','#00eeff','#00ff00','#ffff00','#ff00ff','#8a8a8a','#0000ff'] %}
+                            <div class="color-choice" style="background-color:{{ color }}"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const bannerColorContainer = document.querySelector('.banner-color-container');
+        const colorChoices = document.querySelectorAll('.color-choice');
+
+        colorChoices.forEach(choice => {
+            choice.addEventListener('click', function () {
+                const selectedColor = this.style.backgroundColor;
+                bannerColorContainer.style.backgroundColor = selectedColor;
+
+                fetch("{{ path('save_color') }}", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: "color=" + encodeURIComponent(selectedColor)
+                })
+                    .then(res => res.text())
+                    .then(data => console.log(data));
+            });
+        });
+    </script>
+{% endblock %}

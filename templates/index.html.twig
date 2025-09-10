@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('styles/indexdiv.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">
+</head>
+
+<body>
+{# Inclusion de la navbar twig #}
+{% include 'navbar.html.twig' %}
+
+<main>
+    <link rel="stylesheet" href="{{ asset('styles/allreview.css') }}?v={{ "now"|date("U") }}">
+    <div class="main-container flex-center">
+        <div class="sub-container">
+
+            {# --- LISTE DES UTILISATEURS --- #}
+            <div class="content-container">
+                <h2 class="subtitle" style="text-align: center;">Rejoignez notre communauté</h2>
+                {% for user in users %}
+                    {% set uploadDirWeb = '/uploads/' %}
+                    {% set nbCritiques = critiquesCount[user.id]|default(0) %}
+
+                    <button class="button-content" style="max-height: 400px; min-width: 200px; overflow-y: auto; padding-right: 50px; padding-left: 50px;">
+                        <a href="{{ path('app_movie_allreviewuser', { userID: user.id }) }}">
+                            <div id="review-card" class="flex-column">
+                                <div id="review-content">
+                                    <img src="{{ asset(user.profilePicture ?: 'img/profile-user.png')}}" alt="Review Image" width="50" height="50" style="border-radius: 50%;">
+                                </div>
+                                <div id="review-footer" style="text-align: center;">
+                                    <div><strong>{{ user.username }}</strong></div>
+                                    <div><small style="color: white;">{{ nbCritiques }} critiques</small></div>
+                                </div>
+                            </div>
+                        </a>
+                    </button>
+                {% endfor %}
+            </div>
+
+            {# --- LISTE DES CRITIQUES --- #}
+            <div class="sidebar-container flex-column">
+                <h2>Regardez les critiques de la communauté</h2>
+                <div class="content" style="max-height: 400px; overflow-y: auto; padding-right: 50px; padding-left: 50px;">
+                    <hr style="border: 1px solid #9b9b9bd0; width: 50%;">
+                    {% for review in reviews %}
+                        {% if review.user is not null and review.movieId is not null %}
+                            <button class="button-content">
+                                <div id="review-card">
+                                    {% if review.user is not null and review.movieId is not null %}
+                                        <a href="{{ path('app_movie_allreviewuserbymovie', { movieId: review.movieId, userID: review.user.id}) }}">
+                                            {{ review.user.username }} ⇀ <strong>{{ review.movieTitle }}</strong>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </button>
+                        {% endif %}
+                    {% endfor %}
+                    <hr style="border: 1px solid #9b9b9bd0; width: 50%;">
+                </div>
+            </div>
+
+            <div class="extra-container">
+                <div class="extra-content">
+                    {# contenu supplémentaire si besoin #}
+                </div>
+            </div>
+        </div>
+        <div class="reviews-container"></div>
+    </div>
+</main>
+</body>
+</html>

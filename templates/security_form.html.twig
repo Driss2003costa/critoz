@@ -1,0 +1,23 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'navbar.html.twig' %}
+
+    <div id="verification-container" class="flex-center">
+        <div id="verification-form" class="flex-column">
+            <h2>Code envoyé par mail</h2>
+            <form method="POST" action="{{ path('app_verify_code') }}" class="flex-column">
+                <input type="text" name="code" placeholder="Entrez votre code" required>
+                {% for message in app.flashes('success') %}
+                    <div class="flash-success">{{ message }}</div>
+                {% endfor %}
+                <button type="submit">Vérifier</button>
+                <a type="button" href="{{ path('loginregisterform') }}">Annuler</a>
+                <a type="button" href="{{ path('app_resend_code') }}">Renvoyer le code</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

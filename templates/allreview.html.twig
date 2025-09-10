@@ -1,0 +1,50 @@
+{% include 'navbar.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/allreview.css') }}?v={{ random() }}">
+{% endblock %}
+
+{% block title %}
+    {% if reviews|length > 0 %}
+        {% set firstReview = reviews|first %}
+        <h2 style="text-align: center">
+            Toutes les critiques de {{ firstReview.user.username }} sur le film :
+        </h2>
+        <h3 style="text-align: center">{{ firstReview.movieTitle }}</h3>
+    {% else %}
+        <h2 style="text-align: center">Aucune critique pour ce film</h2>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="main-container">
+        <div class="reviews-container">
+            {% if reviews|length > 0 %}
+                {% for review in reviews %}
+                    {% set etoiles = '★'|repeat(review.rating // 2) %}
+                    <div class="review">
+                        <h3 style="text-align: center;">
+                            {{ review.titleReview }} &nbsp;&nbsp;{{ etoiles }}
+                        </h3>
+                        <p><strong>Critique :</strong> {{ review.reviews|nl2br }}</p>
+                        <div class="review-footer">
+                            <small>
+                                Par {{ review.user.username }}
+                                pour le film : {{ review.movieTitle }}
+                            </small>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align:center;">Aucune critique trouvée.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const movieId = {{ movieId|default('null') }};
+        const bannerColor = "{{ bannerColor|default('#969696') }}";
+    </script>
+
+    <script src="{{ asset('script/allreviews.js') }}?v={{ random() }}" defer></script>
+{% endblock %}

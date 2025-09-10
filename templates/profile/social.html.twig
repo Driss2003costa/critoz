@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social / Boîte de réception</title>
+    <link rel="stylesheet" href="{{ asset('styles/social.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">
+</head>
+
+<body>
+{# Profil utilisateur #}
+{% include 'profile.html.twig' %}
+
+<input type="hidden" id="current-user-id" value="{{ app.user.id }}">
+
+<div class="body-content flex-center">
+    <div class="main-inbox-container">
+        <div class="inbox-container">
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="type-section">
+                    <button class="friends-button"><img src="{{ asset('img/friend.png') }}" width="35px"></button>
+                    <button class="new-message-button"><img src="{{ asset('img/write.png') }}" width="35px"></button>
+                    <button class="support-button"><img src="{{ asset('img/online-support.png') }}" width="35px"></button>
+                </div>
+                <hr>
+                <div class="message-section" id="message-list">
+                    {% for conversation in conversations %}
+                        {% set otherParticipant = null %}
+                        {% for participant in conversation.participants %}
+                            {% if participant.id != app.user.id %}
+                                {% set otherParticipant = participant %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% set lastMessage = conversation.messages|last %}
+                        <button class="message-item flex-center-column" data-conversation="{{ conversation.id }}">
+                            {% if otherParticipant %}
+                                <div class="message-item-container flex-center" style="gap: 15px">
+                                <img src="{{ otherParticipant.profilePicture ?? asset('img/default_pp.png') }}"
+                                     width="50px" height="50px" style="border-radius: 50%">
+                                {{ otherParticipant.username }}
+                                </div>
+                            {% else %}
+                            <div class="message-item-container flex-center" style="gap: 15px">
+                                <img src="{{ asset('img/profile-user.png') }}" width="50px" height="50px" style="border-radius: 50%">
+                                Utilisateur inconnu
+                            </div>
+
+                                <script>
+                                    const senderProfile = "{{ otherParticipant.profilePicture|default('/img/profile-user.png') }}";
+                                </script>
+
+                            {% endif %}
+                        </button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+
+
+            <div class="main-content">
+                <div id="messageContainer">
+                    <div id="message-content"></div>
+                    <div id="message-footer">
+                        <form id="messageForm">
+                            <input type="text" id="messageInput" name="body" placeholder="Écrire un message..." required>
+                            <input type="hidden" id="sender" name="sender" value="{{ app.user.username }}">
+                            <input type="hidden" id="receiver" name="receiver" disabled>
+                            <button type="submit">
+                                <img src="../img/send(1).png" alt="Envoyer" width="50px" height="50px">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Modal pour envoyer un message -->
+                <div id="composeModal" class="modal hidden">
+                    <div class="modal-content">
+                        <button class="close">&times;</button>
+                        <form id="composeForm">
+                            <input type="hidden" id="conversation_id" name="conversation_id">
+                            <input type="text" id="sender" name="sender" value="{{ app.user.username }}" disabled>
+                            <input type="text" id="receiver" name="receiver" placeholder="Destinataire" required>
+                            <input type="text" id="subject" name="subject" placeholder="Sujet (optionnel)">
+                            <input id="body" name="body" placeholder="Votre message..." required>
+                            <button type="submit">Envoyer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bars -->
+            <div id="top-bar" class="flex-center">
+                <h2>Social</h2>
+            </div>
+            <div id="footer-bar"></div>
+
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('script/profile/social.js') }}"></script>
+</body>
+</html>

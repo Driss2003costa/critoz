@@ -1,0 +1,55 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('script/login.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    {% include 'navbar.html.twig' %}
+
+    <main>
+        <div class="tiles">
+            <div class="slide1 slide-center">
+                <button class="left" id="register" style="font-size: large">Inscription ↽</button>
+                <div class="logodiv">
+                    <img src="{{ asset('img/logo.png') }}">
+                </div>
+                <button class="right" id="login" style="font-size: large">Connexion ⇁</button>
+            </div>
+
+            <div class="slide2 slide-center">
+                <div class="tilesright">
+                    {# --- Connexion --- #}
+                    <h2 id="loginTitle" style="font-size: large">Connexion</h2>
+
+                    {% for message in app.flashes('error') %}
+                        <div class="flash-error">{{ message }}</div>
+                    {% endfor %}
+
+                    <form id="loginForm" action="{{ path('login') }}" method="post">
+                        <input type="text" name="email" placeholder="E-Mail" required value="{{ last_username }}">
+                        <input type="password" name="password" placeholder="Mot de passe" required>
+                        <button type="submit" style="color: white">Se connecter</button>
+                    </form>
+
+                    {# --- Inscription --- #}
+                    <form id="registerForm" action="{{ path('register') }}" method="post">
+                        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Mot de passe" required>
+                        <input type="text" name="fullname" placeholder="Nom complet" required>
+                        <input type="date" name="birthdate" placeholder="Date de naissance" required>
+
+                        <button type="submit" id="submitButton2" style="color: white">S'inscrire</button>
+                    </form>
+
+                    {% for message in app.flashes('success') %}
+                        <p class="message">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

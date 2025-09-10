@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('styles/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">
+</head>
+<body>
+
+<nav class="flex-column">
+    <ul class="flex-column">
+        <li><a href="{{ path('home') }}"><img src="{{ asset('img/home.png') }}" alt="Home" width="25vw" height="25vh" id="home"></a></li>
+        <li><a href="{{ path('profile') }}"><img src="{{ asset('img/stats.png') }}" alt="Profile" width="25vw" height="25vh" id="stats"></a></li>
+        <li><a href="{{ path('social') }}"><img src="{{ asset('img/friend.png') }}" alt="Mes amis" width="25vw" height="25vh" id="friends"></a></li>
+        <li><a href="{{ path('app_inbox') }}"><img src="{{ asset('img/email.png') }}" alt="Mes messages" width="25vw" height="25vh" id="messages"></a></li>
+        <li><a href="{{ path('settings') }}"><img src="{{ asset('img/setting.png') }}" alt="Mes paramètres" width="25vw" height="25vh" id="settings"></a></li>
+        <li><a href="{{ path('app_logout') }}"><img src="{{ asset('img/logout.png') }}" alt="Logout" width="25vw" height="25vh" id="logout"></a></li>
+        {% if 'ROLE_ADMIN' in app.user.roles %}
+            <li>
+                <a href="{{ path('administration') }}">
+                    <img src="{{ asset('img/admin.png') }}" alt="Administration" width="25" height="25" id="admin">
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+</body>
+</html>
+

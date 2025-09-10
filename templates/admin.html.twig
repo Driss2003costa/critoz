@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration</title>
+    <link rel="stylesheet" href="{{ asset('styles/profile.css') }}?v={{ random() }}">
+    <link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+</head>
+
+<body>
+{% include 'profile.html.twig' %}
+
+<div class="body">
+
+    <!-- Reconfirmation -->
+        <div id="Reconfirmation">
+            <div class="titlereconfirmation" id="popup-text">
+            </div>
+            <div class="buttonConfirmation" id="cancel-btn">
+                    <button id="cancel-btn">NON</button>
+                </a>
+                    <button id="confirm-btn">OUI</button>
+                </a>
+            </div>
+        </div>
+
+    <div class="main-content">
+        <div class="sub-grid">
+
+            <!-- Utilisateurs Bannis -->
+            <div class="first">
+                <div class="banSection">
+                    <h3 style="text-align: center; font-size: x-large;">Utilisateurs Bannis</h3>
+                    <div class="banGrid">
+                        {% for bannedUser in bannedUsers %}
+                            <button class="banCard">
+                                <img src="{{ bannedUser.profilePicture|default(asset('img/profile-user.png')) }}" alt="" width="35px">
+                                {{ bannedUser.username }}
+                                <p>{{ bannedUser.banReason|default('Raison non spécifiée') }}</p>
+                            </button>
+                        {% else %}
+                            <p style="text-align:center;">Aucun utilisateur banni</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Utilisateurs Inscrits -->
+            <div class="two">
+                <div class="userSection">
+                    <h3 style="text-align: center; font-size: x-large;">Utilisateurs Inscrits</h3>
+                    <div class="userGrid">
+                        {% for user in users %}
+                            <button class="userCard" data-user-id="{{ user.id }}" data-username="{{ user.username }}" data-mail="{{ user.email }}"onclick="openProfile()" data-pic="{{ user.profilePicture ? asset(user.profilePicture) : asset('img/profile-user.png') }}">
+                                <img src="{{ user.profilePicture|default(asset('img/profile-user.png')) }}" alt="" width="85%">
+                                {{ user.username }}
+
+                                {% if user.banned %}
+                                    <a href="{{ path('admin_unban_user', {id: user.id}) }}">Débannir</a>
+                                {% else %}
+                                    <a href="{{ path('admin_ban_user', {id: user.id}) }}">Bannir</a>
+                                {% endif %}
+                            </button>
+                        {% else %}
+                            <p style="text-align:center">Aucun utilisateur inscrit</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="three">
+                <div class="nonVerifiedUserSection">
+                    <h3 style="text-align: center; font-size: x-large;">Utilisateurs Non Vérifiés</h3>
+                    <div class="nonVerifiedUserGrid">
+                        {% for user in nonVerifiedUsers %}
+                            <button class="nonVerifiedUserCard">
+                                {{ user.email }}
+                            </button>
+                        {% else %}
+                            <p style="text-align:center;">Tous les utilisateurs sont vérifiés</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="four">
+                <div class="review-section">
+                    <div class="top-review-content">
+                        <h3 style="text-align: center; font-size: x-large;">Toutes les reviews</h3>
+                    </div>
+                    <div class="review-content">
+                        {% for review in reviews %}
+                            <button class="review-card"
+                                    onclick="openProfile()"
+                                    data-id="{{ review.id }}"
+                                    data-user="{{ review.user.username }}"
+                                    data-movie-id="{{ review.movieId }}"
+                                    data-user-id="{{ review.user.id }}"
+                                    data-pic="{{ review.user.profilePicture|default(asset('img/profile-user.png')) }}"
+                                    data-text="{{ review.titleReview }}">
+                                <strong>{{ review.user.username }}</strong> : {{ review.titleReview }}
+                            </button>
+                        {% else %}
+                            <p style="text-align:center">Aucune review trouvée</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+    <div id="profile-container">
+        <div class="reviews">
+        </div>
+        <div class="profile-content">
+            <button id="close-profile" class="close-btn" style="
+            position:absolute;
+            top:10px;
+            right:10px;
+            background:none;
+            border:none;
+            font-size:24px;
+            cursor:pointer;
+        ">×</button>
+            <div class="profile-pic">
+                <img src="{{ asset('img/profile-user.png') }}" alt="Profil" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+                <div class="buttons">
+                    <button class="ban"><img src="{{ asset('img/ban.png') }}" width="30px"></button>
+                    <button><img src="{{ asset('img/forbidden.png') }}" width="30px"></button>
+                    <button class="crown"><img src="{{ asset('img/crown.png') }}" width="30px" alt="Promote User"></button>
+                    <button><img src="{{ asset('img/megaphone.png') }}" width="30px"></button>
+                </div>
+
+            <div class="input-section">
+                <form id="warn-form" method="POST">
+                    <label>Ecrivez la raison de l'avertissement</label>
+                    <input type="hidden" name="email" placeholder="Email" readonly>
+                    <input type="hidden" name="sender" placeholder="Email" readonly>
+                    <input type="text" name="warn_reason" placeholder="Écrire la raison">
+                    <button type="submit">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+            <div class="six">
+                <div class="AdminUserSection">
+                    <h3 style="text-align: center; font-size: x-large;">Administrateurs</h3>
+                    <div class="AdminUserGrid">
+                        {% for admin in admins %}
+                            <button class="AdminUserCard">
+                                {{ admin.username }}
+                            </button>
+                        {% else %}
+                            <p style="text">Aucun administrateur</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="{{ asset('script/profile/admin.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,407 @@
+/* CONTENEUR PRINCIPAL DE LA PAGE INBOX/MESSAGERIE */
+.body-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* CONTENEUR GLOBAL DE L’INBOX */
+.main-inbox-container {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 50vw;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* GRID PRINCIPALE INBOX */
+.inbox-container {
+    display: grid;
+    grid-template-columns: 35% 1fr 1fr;
+    grid-template-rows: 10% 1fr 1fr 10%;
+    gap: 10px;
+    padding: 10px;
+    height: 100%;
+    max-height: 88vh;
+}
+
+.inbox-container>div {
+    background-color: rgba(0, 4, 63, 0.233);
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* BARRE HAUTE, BASSE, GAUCHE DE L’INBOX */
+#top-bar {
+    grid-row: 1;
+    grid-column: span 3;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    text-align: center;
+    font-size: larger;
+    background: linear-gradient(135deg, #000068, #1a1f8c, #6b75ec);
+    background-size: 400% 1000%;
+    animation: gradientAnimation 45s ease infinite;
+    color: #ffffff;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-row: 2 / span 2;
+    grid-column: 1;
+    border-radius: 5px;
+}
+
+#footer-bar {
+    grid-row: 4;
+    grid-column: span 3;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background: linear-gradient(135deg, #000068, #1a1f8c, #6b75ec);
+    background-size: 400% 1000%;
+    animation: gradientAnimation 45s ease infinite;
+}
+/*=======================================
+
+/* SECTION TYPE DANS SIDEBAR */
+.type-section {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+    gap: 10px;
+}
+
+
+/* CONTENU PRINCIPAL DES MESSAGES */
+.main-content {
+    grid-row: span 2;
+    grid-column: span 2;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+/* CONTENEUR DES MESSAGES */
+.message-section {
+    display: grid;
+    margin-top: 50px;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    height: 100%;
+    width: 90%;
+    gap: 10px;
+    text-align: center;
+}
+
+/* BLOC INDIVIDUEL MESSAGE */
+.message-item {
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #252525,#252525, #0400e4);
+    background-size: 200% 200%;
+    background-position: 0% 50%;
+    transition: background-position 0.6s ease, transform 0.3s ease;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: all 1.3s ease;
+}
+
+.message-item-container{
+}
+
+.message-item:hover {
+    background-position: 100% 50%;
+    transform: translateY(-5px);
+}
+
+.message-item>h2 {
+    margin: 0;
+    font-size: 1.2em;
+    padding: 0.5em;
+}
+
+.message-item>p {
+    margin: 0;
+    font-size: 1em;
+    padding: 0.5em;
+}
+
+/* BOUTON COMPOSER NOUVEAU MESSAGE */
+.friends-button {
+    background: linear-gradient(135deg, #d1d1d1,#797979, #0400e4);
+    background-size: 200% 200%;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    height: 90px;
+    width: 100%;
+    transition: all 0.8s ease;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+
+.new-message-button {
+    background: linear-gradient(135deg, #d1d1d1,#797979, #0400e4);
+    background-size: 200% 200%;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    height: 90px;
+    width: 100%;
+    transition: all 0.8s ease;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+
+.support-button {
+    background: linear-gradient(135deg, #d1d1d1,#797979, #0400e4);
+    background-size: 200% 200%;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    height: 90px;
+    width: 100%;
+    transition: all 0.8s ease;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.friends-button:hover{
+    background-position: 0% 100%;
+}
+
+.support-button:hover{
+    background-position: 0% 100%;
+}
+
+.new-message-button:hover{
+    background-position: 0% 100%;
+}
+
+
+.compose-button:hover {
+    background-position: 100% 50%;
+    transform: translateY(-5px);
+}
+
+/* IMAGE PROFIL DANS INBOX */
+.profile-picture-inbox {
+    border-radius: 50%;
+    border: none;
+}
+
+/* MASQUAGE */
+.hidden {
+    visibility: hidden;
+}
+
+/* MODAL COMPOSER MESSAGE */
+#composeModal {
+    position: fixed;
+    top: 15vh;
+    left: 30vw;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    height: 100%;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 75%;
+    border-radius: 1%;
+    padding: 20px;
+    background-color: #52525277;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 95%;
+    height: 100%;
+}
+
+/* INPUTS DU FORMULAIRE COMPOSER */
+#receiver,
+#subject,
+#body {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1em;
+    border: none;
+    background-color: #ffffffd5;
+}
+
+#receiver { height: 40px; }
+#subject { height: 40px; }
+#body { height: 100%; resize: none; }
+
+#composeForm {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+}
+
+#composeForm>button {
+    background-color: #28a745;
+    margin-top: 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 35%;
+    height: 15%;
+}
+
+/* BOUTON FERMER MODAL */
+.close {
+    align-self: flex-start;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* CONTENEUR MESSAGES DÉTAILLÉS */
+#messageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#message-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    width: 75%;
+    height: 100%;
+
+
+}
+
+/* CARTE MESSAGE */
+.message-card {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    background: linear-gradient(135deg, #222222, #8d8d8d);
+    color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 50, 0.3);
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    max-width: 600px;
+    margin: 20px auto;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.message-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 5px;
+}
+
+
+.message-sender {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.message-body {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+#message-footer {
+    position: relative;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    bottom: 0;
+    left: 0;
+    gap: 10px;
+    box-sizing: border-box;
+}
+#messageForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 85%;
+}
+#messageForm>button {
+    background-color: #007bff00;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#messageForm>button:hover {
+    transform: translateX(5px);
+}
+
+#messageInput {
+    width: 80%;
+    padding: 12px;
+    border-radius: 15px;
+    border: none;
+    font-size: 1em;
+    outline: none;
+}
+
+@keyframes gradientAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ANIMATION FADE IN POUR LES MESSAGES */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

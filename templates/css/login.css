@@ -1,0 +1,182 @@
+.tiles{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+}
+
+:root{
+--blue: rgb(0, 0, 73);
+--white: rgb(255, 255, 255);
+}
+.slide1{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45vw;
+    height: 75vh;
+    opacity: 1;
+    background-color: var(--blue);
+    border-radius: 50px;
+    overflow: hidden;
+    z-index: 100;
+}
+
+
+.logodiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    height: 75%;
+}
+.logodiv img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+p{
+    position: relative;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+    max-width: 1000px;
+    line-height: 1;
+}
+button{
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+}
+.right{
+    margin-right: 5%;
+    animation: opacityanimation 2s ease-in-out infinite alternate;
+    cursor: pointer;
+}
+.left{
+    margin-left: 5%;
+    animation: opacityanimation 5s ease-in-out infinite alternate;
+    cursor: pointer;
+}
+
+
+.slide-centertoleft {
+    transform: translateX(-25vw);
+    animation: centertoleft 2s ease-in-out alternate;
+}
+.slide-lefttocenter{
+    transform: translateX(0);
+    animation: lefttocenter 2s ease-in-out alternate;
+}
+.slide-centertoright {
+    transform: translateX(25vw);
+    animation: centertoright 2s ease-in-out alternate;
+}
+.slide-righttocenter{
+    transform: translateX(0);
+    animation: righttocenter 2s ease-in-out alternate;
+}
+
+
+.slide2{
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 45vw;
+    height: 75vh;
+    background-color: rgba(245, 245, 245, 0.58);
+    color: var(--blue);
+    border-radius: 50px;
+    border: solid 1px rgba(255, 255, 255, 0);
+    z-index: 0;
+}
+.tilesright{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tilesright > h2{
+    font-size: 2.5rem;
+    margin-top: 0;
+    color: var(--blue);
+}
+
+#loginForm, #registerForm, #contactForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+#loginForm input, #registerForm input, #contactForm input{
+    width: 25vw;
+    height: 10vh;
+    margin: 20px 0;
+    padding: 0 20px;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0);
+    border: solid 1px var(--blue);
+    font-size: 2.2em;
+}
+#loginForm input::placeholder, #registerForm input::placeholder, #contactForm input::placeholder{
+    color: var(--blue);
+    font-size: 1.2em;
+
+}
+
+#loginForm button, #registerForm button, #contactForm button{
+    width: 25vw;
+    height: 10vh;
+    margin: 20px 0;
+    padding: 0 20px;
+    border-radius: 50px;
+    background-color: var(--blue);
+    border: solid 1px var(--blue);
+    font-size: 1.2em;
+    cursor: pointer;
+    color: white;
+    font-size: 2.2rem;
+}
+#contactForm textarea{
+    display: block;
+    width: 25vw;
+    height: 10vh;
+    margin: 20px 0;
+    padding: 0 20px;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0);
+    border: solid 1px var(--blue);
+    font-size: 2.2em;
+}
+#registerForm{
+    display: none;
+}
+
+
+
+.slide1, .slide2 {
+    transition: transform 1.5s ease;
+}
+
+.slide-left   { transform: translateX(-25vw); }
+.slide-center { transform: translateX(0); }
+.slide-right  { transform: translateX(25vw); }
+
+@keyframes opacityanimation {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

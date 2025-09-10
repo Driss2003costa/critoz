@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails du film</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('styles/movies.css') }}?v={{ random() }}">
+    <link rel="stylesheet" href="{{ asset('styles/flexcontent.css') }}">
+</head>
+
+<body>
+<header>
+    {% include 'navbar.html.twig' %}
+</header>
+
+<div class="main-content flex-center">
+    <div class="container">
+        <div class="movie-header">test</div>
+
+        <div id="movie-details">Chargement...</div>
+        <div id="movie-details2" class="flex-center"></div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const reviewFormUrl = "{{ path('reviews_form', {'movieId': 'MOVIE_ID'}) }}";
+        const reviewListUrl = "{{ path('app_movie_allreviewbymovie', {'movieId': 'MOVIE_ID'}) }}";
+
+        const reviewFormBtn = document.getElementById('reviewFormBtn');
+        const reviewListBtn = document.getElementById('reviewListBtn');
+
+        if (reviewFormBtn) {
+            reviewFormBtn.onclick = () => {
+                const movieId = {{ movieId }};
+                window.location.href = reviewFormUrl.replace('MOVIE_ID', movieId);
+            };
+        }
+
+        if (reviewListBtn) {
+            reviewListBtn.onclick = () => {
+                const movieId = {{ movieId }};
+                window.location.href = reviewListUrl.replace('MOVIE_ID', movieId);
+            };
+        }
+    });
+</script>
+<script src="{{ asset('script/detailsmovies.js') }}"></script>
+
+</body>
+</html>
